@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>es6类的书写</title>
+	<script>
+		let a = 0o777;
+		console.log(a)
+		class Person{
+			constructor(name,age){
+				this.name = name;
+				this.age = age;
+			}
+			showName(){
+				return `他的名字是:${this.name}`
+			}
+			showAge(){
+				return `他的年龄为:${this.age}`
+			}
+		}
+		let p1 = new Person('杜兰特',28);
+		console.log(p1.showName(),p1.showAge());
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
