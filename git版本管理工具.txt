@@ -1,0 +1,52 @@
+1、Git 的基础命令行操作
+     （1）、git  init                  //初始化本地git仓库
+     （2）、git add <file>      //添加文件
+     （3）、git  status             //查看状态
+     （4）、git  commit          //提交
+     （5）、git  push               //推送到仓库
+     （6）、git  pull                 //从远程仓库拉取数据
+     （7）、git  clone              //从远程仓库拷贝数据
+
+2、Git的安装方法
+	1、Mac
+	https://git-scm.com/download/mac
+	2、Windows
+	https://git-scm.com/download/win
+
+3、Git的使用方法
+	先在桌面或其他位置建一个文件夹--->cd   文件夹路径---->git  init（初始化本地git仓库）
+	--->在编辑器里写文件--->git  add .（添加所有新写的代码文件）--->git  status(查看状态)
+	--->"git rm --cached <file>删除文件--->（提交代码）git  commit  -m  "修改内容(中英文都可以把修改的内容书写下)"
+git中创建文件:touch  文件名；
+git add *.html上传某一类文件
+git init(初始化) -->git config --global user.name "wangyamin"-->
+git config --global user.email "3397766097."-->git add <file>/git add *.html/git add .
+-->git rm --cached <file>删除文件--->提交代码）git  commit  -m  "修改内容(中英文都可以把修改的内容书写下)"
+
+4、如果不想上传一些文件或文件夹的方法
+	建一个文件.gitignore--->然后把不想上传的文件写入到这里面就可以了
+
+5、创建git分支（自己还没有完成的项目自己创建一个分支暂时不上传一面影响大家工作）
+	方法：命令行中定义分支git  branch  login (name) --->
+	git  checkout  login（切换到建立的分支）--->
+	书写分支里自己的内容touch login.html(login和index中写上git branch login)--->
+	git status--->git add .  --->git commit -m 'git branch login'--->
+	切换到代码主线git checkout master(书写的分支内容屏蔽了上传不了仓库)--->
+	回到分支git checkout login（书写的分支内容就显示出来了）
+
+6、将分支合并到主线代码中
+	git  checkout  master---->git  merge  login(将分支合并到了主线代码了)
+
+7、和远程仓库对接
+	登陆https://github.com--->注册一个github张号--->github 创建一个仓库
+	--->git remote--->
+	git remote add origin https://github.com/bpzls-wym/homework.git
+	--->git push -u origin master--->创建一个README.md(里面写点内容)
+	touch.README.md--->git  status--->git  add . --->git commit -m 'README.md'
+	--->git  push
+
+8、克隆一个仓库（远程仓库克隆到本地）
+	在github中点开Clone  or  download拷贝连接地址--->在桌面创建新文件夹
+	--->cd ..（cd 到桌面路径）--->cd到新建文件夹路径--->
+	git clone (刚才粘贴的连接地址)
+	
