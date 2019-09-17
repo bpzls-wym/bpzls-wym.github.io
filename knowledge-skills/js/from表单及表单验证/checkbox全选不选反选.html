@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>全选不选反选</title>
+    <style>
+        [name="button"]{
+            margin-bottom:10px;
+            cursor: pointer;
+        }
+        [name="data"]{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="checkAll">
+        全选：<input  name="button" type="checkbox">
+    </div>           
+    <div id="backCheck">
+            反选：<input name="button" type="button" value="反选">
+    </div>   
+    <div id="div">
+        <input type="checkbox" name="data">足球<br>
+        <input type="checkbox" name="data">篮球<br>
+        <input type="checkbox" name="data">羽毛球<br>
+        <input type="checkbox" name="data">排球<br>
+        <input type="checkbox" name="data">乒乓球<br>
+        <input type="checkbox" name="data">冰球<br>
+        <input type="checkbox" name="data">水球<br>
+        <input type="checkbox" name="data">网球<br>
+        <input type="checkbox" name="data">桌球<br>
+        <input type="checkbox" name="data">玻璃球<br>
+        <input type="checkbox" name="data">弹球<br>
+        <input type="checkbox" name="data">弧线球<br>
+        <input type="checkbox" name="data">切球<br>
+        <input type="checkbox" name="data">高球<br>
+        <input type="checkbox" name="data">香蕉球<br>
+        <input type="checkbox" name="data">点球<br>
+        <input type="checkbox" name="data">乌龙球<br>
+        <input type="checkbox" name="data">溜溜球<br>
+        <input type="checkbox" name="data">真空球<br>
+        <input type="checkbox" name="data">热气球
+    </div>
+    <script>
+        function $(id) {
+            return document.getElementById("id");
+        }
+        var names = document.getElementsByName("button");
+        var names1 = document.getElementsByName("data");
+        names[0].onchange=function(){
+            console.log(this)
+            if(this.checked){
+                names1.forEach((val,index)=>{
+                    val.checked=true
+                })
+            }else{
+                names1.forEach((val,index)=>{
+                    val.checked=false
+                })  
+            }  
+        }
+        names[1].onclick=function(){
+            console.log(this)
+
+            names1.forEach((val,index)=>{
+                if(val.checked){
+                    val.checked=false
+                }else(
+                    val.checked=true  
+                )
+            })
+            
+        }
+    </script>
+</body>
+</html>
