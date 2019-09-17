@@ -1,0 +1,3 @@
+定义选中项目的选择器为param
+if(param.checked){}
+param.checked == true那么此项被选中
