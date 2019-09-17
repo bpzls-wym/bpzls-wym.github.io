@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发送手机验证码</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <style>
+        .err {color:blue}
+        .success {color:green}
+    </style>
+</head>
+<body>
+    <label for="mobile">
+        <input type="tel" id="mobile" placeholder="请输入手机号" onblur="checkphone()" oninput="checkphone()">
+    </label>
+    <input type="button" id="getems" value="获取验证码">
+    <p id="pax">请输入11位手机号码</p>
+</body>
+<script>
+    // 点击获取验证码
+    $("#getems").click(function(){
+        // getCode();
+        var code = $(this);
+        if(checkphone()){
+            time(code)
+        }
+        
+    })
+    // 验证手机号
+    function checkphone(){
+        var mobile=$("#mobile").val();
+        var p = $("#pax");
+        var pattern = /^1[34578]\d{9}$/; //验证手机号正则表达式 
+        if(mobile.length==0){
+            p.text("手机号不能为空！")
+            p.addClass("err")
+            return false
+        }else if(!pattern.test(mobile)){
+            p.text("你输入的手机号不规范!")
+            p.addClass("err")
+            return false
+        }else{
+            p.text("OK!")
+            p.addClass("success")
+            return true
+        }
+    }
+    // 获取验证码
+    function getCode(){
+        var mobile = $("#mobile").val();
+        var getCode_url = "test.php"; //随便举的例子
+        $.ajax({
+            type: "POST",
+            contentType: "application/x-www-form-urlencoded;charset=utf-8",
+            url: getCode_url,
+            data: {"mobile":mobile},
+            dataType: "json",
+            complete: function () { },
+            success: function (result) {
+                //console.debug(result);
+                alert(result);
+            
+            },
+            error: function (result, status) { 
+                
+            }
+        })
+    }
+    // 验证码倒计时
+    var wait = 60;
+    function time(param,pax){
+        if(wait==0){
+            param.removeAttr("disabled");
+            param.val("获取验证码");
+            pax.html("如果您在1分钟内没有收到验证码，请检查您填写的手机号码是否正确或重新发送");
+            wait = 60;
+        }else{
+            param.attr("disabled",true);
+            param.val("倒数"+wait+"秒");
+            wait--;
+            setTimeout(function(){
+                time(param,pax)
+            },1000)
+        }
+    }
+</script>
+</html>
