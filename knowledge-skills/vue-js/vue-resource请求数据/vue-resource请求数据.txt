@@ -1,0 +1,22 @@
+vue-resource 请求数据的方法
+1，get请求方式
+this.$http.get('url', [options]).then((res) => { 
+// 处理成功的结果}, (res) => { // 处理失败的结果});
+
+2，post请求方式
+this.$http.post("url",{data:data},{emulateJSON:true}).then( 
+   function (res) { 
+    // 处理成功的结果 
+    alert(res.body); 
+   },function (res) { 
+   // 处理失败的结果 
+   } 
+  );
+
+? get(url, [options])
+? head(url, [options])
+? delete(url, [options])
+? jsonp(url, [options])
+? post(url, [body], [options])
+? put(url, [body], [options])
+? patch(url, [body], [options])
