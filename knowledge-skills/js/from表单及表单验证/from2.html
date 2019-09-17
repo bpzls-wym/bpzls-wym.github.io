@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{ 
+  margin-left:auto; 
+  margin-right:auto; 
+  max-width: 500px; 
+  background: #F8F8F8; 
+  padding: 10px; 
+  font: 12px Arial, Helvetica, sans-serif; 
+  color: #666; 
+  border-radius: 5px; 
+  -webkit-border-radius: 5px; 
+  -moz-border-radius: 5px; 
+} 
+body,form{ 
+  padding: 15px; 
+  /*width: 500px;*/
+  background: #F4F4F4; 
+} 
+h2 { 
+  padding-bottom:2px; 
+   *padding:0; 
+font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif; 
+padding: 20px 0px 20px 40px; 
+display: block; 
+margin: -30px -30px 10px -30px; 
+color: #FFF; 
+background: #9DC45F; 
+text-shadow: 1px 1px 1px #949494; 
+border-radius: 5px 5px 0px 0px; 
+-webkit-border-radius: 5px 5px 0px 0px; 
+-moz-border-radius: 5px 5px 0px 0px; 
+border-bottom:1px solid #89AF4C; 
+} 
+/*label { 
+display: block; 
+margin: 0px 0px 0px; 
+}*/
+ select { 
+color: #555; 
+height: 30px; 
+line-height:12px; 
+width: 30%; 
+padding: 0px 0px 0px 10px; 
+margin-top: 2px; 
+border: 1px solid #E5E5E5; 
+background: #FBFBFB; 
+outline: 0; 
+-webkit-box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2); 
+box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2); 
+font: normal 12px/12px Arial, Helvetica, sans-serif; 
+} 
+.classes input{ 
+  vertical-align:middle;  
+  margin-top:-2px;  
+  margin-bottom:1px; 
+  height: 35px; 
+} 
+textarea{ 
+height:100px; 
+width: 90%; 
+padding-top: 10px; 
+} 
+button { 
+background-color: #9DC45F; 
+border-radius: 5px; 
+-webkit-border-radius: 5px; 
+-moz-border-border-radius: 5px; 
+border:none; 
+padding: 10px 25px 10px 25px; 
+color: #FFF; 
+text-shadow: 1px 1px 1px #949494; 
+} 
+button:hover { 
+background-color:#80A24A; 
+}
+#name,#num,#email{vertical-align:middle;}/*input和图片在一行*/ 
+#namePrompt,#numPrompt,#emailPrompt{ 
+  vertical-align:middle;/*input和图片在一行*/
+  display: inline-block; 
+  padding: 0px; 
+  color: red; 
+  background-color:#F4F4F4;  
+} 
+/*验证表单的格式*/
+/*当鼠标放到文本框时，提示文本的样式*/
+.import_prompt{ 
+  border:solid 1px #ffcd00; 
+  background-color:#ffffda; 
+  } 
+
+    </style>
+</head>
+<body>
+        <form action="MAILTO:someone@w3school.com.cn" method="post" enctype="text/plain" onsubmit="return checkForm()"> 
+            <h2>学生选课基本信息</h2> 
+            姓名：<input type="text" id="name" placeholder="yourname" size="20" onfocus="checkNameFocus()" onblur="checkNameBlur()"> 
+            <div id="namePrompt"></div><br/> 
+            学号：<input type="text" id="num" placeholder="yournum" size="20" onfocus="checkNumFocus()" onblur="checkNumBlur()"> 
+            <div id="numPrompt"></div><br/> 
+            性别：<label><input type="radio" name="sex" value="男" checked>男</label> 
+               <label><input type="radio" name="sex" value="女">女<br/></label> 
+            邮箱：<input type="text" id="email" placeholder="yourmail" size="20" onfocus="checkEmailFocus()" onblur="checkEmailBlur()"> 
+            <div id="emailPrompt"></div> 
+            <br/> 
+            <fieldset class="classes" id="course" onchange="checkCourse()"> 
+              <legend>可选课程</legend> 
+              <label><input name="Class" type="checkbox" value="" />算法设计</label><br/> 
+              <label><input name="Class" type="checkbox" value="" />人工智能</label><br/> 
+              <label><input name="Class" type="checkbox" value="" />编译原理</label><br/> 
+              <label><input name="Class" type="checkbox" value="" />机器学习</label><br/> 
+              <label><input name="Class" type="checkbox" value="" />计算机网络</label> 
+            </fieldset> 
+            喜欢的老师：<select name="teacher"> 
+              <option value="0">刘老师</option> 
+              <option value="0">齐老师</option> 
+              <option value="0">李老师</option> 
+              <option value="0">马老师</option> 
+              <option value="0">肖老师</option> 
+            </select><br/> 
+            还有话说：<br/> 
+            <textarea id="message" name="message" placeholder="Your Message to Us" cols="50" rows="10"></textarea> 
+            <br/><br/> 
+            <button type="submit">提交</button> 
+            <button type="reset">重置</button> 
+          </form>
+</body>
+<script>
+//     下来就是js表单验证了。。。。。。
+// 这是js验证的目标。
+// 1.当鼠标放在姓名文本框时，提示文本及样式。
+// 2./*当鼠标离开姓名文本框时，提示文本及样式*/ 汉字 
+// 3.当鼠标放在学号文本框时，提示文本及样式。
+// 4./*当鼠标离开学号文本框时，提示文本及样式*/只能是数字
+// 5.邮箱的验证，必须符合邮箱的格式。
+// 6.表单提交时验证表单内容输入的有效性。
+// 其中用到了正则表达式来匹配。
+// 匹配简体中文的正则是^[\u4e00-\u9fa5]+$
+// 匹配邮箱格式的正则是 [\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?
+// 直接上代码：
+// [javascript] view plain copy 在CODE上查看代码片派生到我的代码片
+// 通过getElementById得到相应元素 
+function $(id){ 
+  return document.getElementById(id); 
+} 
+// 当鼠标放在姓名文本框时，提示文本及样式。 
+function checkNameFocus(){ 
+  var userNameId=$("name"); 
+  userNameId.className="import_prompt"; 
+  var namePrompt=$("namePrompt"); 
+  namePrompt.innerHTML="必须是汉字哦~"; 
+} 
+/*当鼠标离开姓名文本框时，提示文本及样式*/ 
+function checkNameBlur(){ 
+  var namePrompt=$("namePrompt"); 
+  namePrompt.innerHTML=null; 
+  var reg1=/^[\u4e00-\u9fa5]+$/;//匹配简体中文的正则表达式 
+  var name=$("name").value; 
+  // 先查看是否为空 
+  if(name==""){ 
+    namePrompt.innerHTML="名字不能为空！"
+    return false; 
+  } 
+  else if(!reg1.test(name)){ 
+    var trueimg=document.createElement("img"); 
+    trueimg.src="./formimages/false.png"; 
+    trueimg.width="15"; 
+    namePrompt.appendChild(trueimg); 
+    return false; 
+  }else{ 
+    var trueimg=document.createElement("img"); 
+    trueimg.src="./formimages/true.png"; 
+    trueimg.width="15"; 
+    namePrompt.appendChild(trueimg); 
+    return true; 
+  } 
+} 
+//当鼠标放在学号文本框时，提示文本及样式。 
+function checkNumFocus(){ 
+  var studentNum=$("num"); 
+  studentNum.className="import_prompt"; 
+  var numPrompt=$("numPrompt"); 
+  numPrompt.innerHTML="必须是0-9的10位数字哦~"; 
+} 
+/*当鼠标离开学号文本框时，提示文本及样式*/
+function checkNumBlur(){ 
+  var numPrompt=$("numPrompt"); 
+  numPrompt.innerHTML=null; 
+  var reg2=/^\d{10}$/; 
+  var xuehao=$("num").value; 
+  //先验证是否为空 
+  if(xuehao==""){ 
+    numPrompt.innerHTML="学号不能为空！"; 
+    return false; 
+  } 
+  else if(!reg2.test($("num").value)){//好奇怪，使用变量就变成空的了，在外边就有值。 
+    var trueimg=document.createElement("img"); 
+    trueimg.src="./formimages/false.png"; 
+    trueimg.width="15"; 
+    numPrompt.appendChild(trueimg); 
+    return false; 
+  } 
+  else{ 
+    var trueimg=document.createElement("img"); 
+    trueimg.src="./formimages/true.png"; 
+    trueimg.width="15"; 
+    numPrompt.appendChild(trueimg); 
+    return true; 
+  } 
+} 
+//邮箱的验证，必须符合邮箱的格式。 
+function checkEmailFocus(){ 
+  var email=$("email"); 
+  email.className="import_prompt"; 
+  var emailPrompt=$("emailPrompt"); 
+  emailPrompt.innerHTML="请输入您常用的电子邮箱"; 
+} 
+function checkEmailBlur(){ 
+  var emailPro=$("emailPrompt");; 
+  emailPrompt.innerHTML=null; 
+  var emailValue=$("email").value; 
+  var reg3=/[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/; 
+  //先验证是否为空 
+  if(emailValue==""){ 
+    emailPrompt.innerHTML="邮箱不能为空！"; 
+    return false; 
+  } 
+  else if(!reg3.test(emailValue)){ 
+    var trueimg=document.createElement("img"); 
+    trueimg.src="./formimages/false.png"; 
+    trueimg.width="15"; 
+    emailPrompt.appendChild(trueimg); 
+    return false; 
+  } 
+  else{ 
+    var trueimg=document.createElement("img"); 
+    trueimg.src="./formimages/true.png"; 
+    trueimg.width="15"; 
+    emailPrompt.appendChild(trueimg); 
+    return true; 
+  } 
+} 
+//验证复选框 
+function checkCourse(){  
+  var courses=$("course"); 
+  var cbs = courses.getElementsByTagName("input");  
+  var b = false;  
+  for(var i=0;i<cbs.length;i++){  
+    if(cbs[i].type == "checkbox" && cbs[i].checked){  
+      b = true;  
+    }  
+  }  
+  if(!b){  
+    alert("请至少选择一门课程！！！");  
+    return false;  
+  }  
+}  
+//表单提交时验证表单内容输入的有效性 
+function checkForm(){ 
+   var flagName=checkNameBlur(); 
+   var flagNum=checkNumBlur(); 
+   var flagEmail=checkEmailBlur(); 
+   var flagCourse=checkCourse(); 
+   if(flagName==true &&flagNum==true &&flagEmail==true &&flagCourse==true){ 
+     return true; 
+    } 
+    else{ 
+      return false; 
+     }   
+  }
+
+</script>
+</html>
+ 
