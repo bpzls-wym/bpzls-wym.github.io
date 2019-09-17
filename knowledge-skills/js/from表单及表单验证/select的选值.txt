@@ -1,0 +1,26 @@
+一，Javascript获取select下拉框选中的值
+       现在有一id=test的下拉框，怎么拿到选中的那个值呢？
+	分别使用javascript原生的方法和jquery方法
+	<select id="test" name="">
+ 	     <option value="1">text1</option>
+ 	     <option value="2">text2</option>
+	</select>
+	（一）、javascript原生的方法
+	            1. 拿到select对象：
+		var myselect=document.getElementById("test");
+	             2. 拿到选中项的索引：
+	                var index=myselect.selectedIndex;
+		// selectedIndex代表的是你所选中项的index
+	            3. 拿到选中项options的value：
+		myselect.options[index].value;
+	            4. 拿到选中项options的text：
+		myselect.options[index].text;
+
+	（二）、jquery方法（前提是已经加载了jquery库）
+		1.获取选中的项
+	   	   var options=$("#test option:selected");
+		2.拿到选中项的值
+	   	   alert(options.val());
+		3.拿到选中项的文本
+	   	   alert(options.text());
+ 
