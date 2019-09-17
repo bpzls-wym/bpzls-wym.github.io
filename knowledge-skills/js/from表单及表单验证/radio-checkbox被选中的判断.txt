@@ -1,3 +1,87 @@
 定义选中项目的选择器为param
 if(param.checked){}
 param.checked == true那么此项被选中
+
+
+一，获取单选框框值的方法  //数组循环查找选中的项目，然后将选中项的值提取出来
+function getRadioRes(Name){
+    var rdsObj = document.getElementsByName(Name);
+    var checkVal = null;
+    for(i = 0; i < rdsObj.length; i++){
+        if(rdsObj[i].checked){checkVal = rdsObj[i].value;}
+    }
+    return checkVal;
+}
+ 
+二，单选框赋值方法
+function set_input_value(arg, data){
+    var label;
+    label = document.getElementsByName(arg);
+    for (var i = 0; i < label.length; i++){
+        if (label[i].getAttribute("value") == "" + data){
+            label[i].setAttribute("checked", "checked");
+        }else{
+            label[i].removeAttribute("checked");
+        }
+    }
+}
+ 
+
+三，获取多选框赋值（//将数据添加为一个数组）
+<input type="checkbox" name="test" value="1"/><span>1</span>
+<input type="checkbox" name="test" value="2"/><span>2</span>
+<input type="checkbox" name="test" value="3"/><span>3</span>
+<input type="checkbox" name="test" value="4"/><span>4</span>
+<input type="checkbox" name="test" value="5"/><span>5</span>
+<input type='button' value='提交' οnclick="fun()"/>
+
+function fun(){
+    obj = document.getElementsByName("test");
+    check_val = [];
+    for(k in obj){
+        if(obj[k].checked)
+            check_val.push(obj[k].value);
+    }
+    alert(check_val);
+}
+ 
+
+四，复选框赋值
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="web_button" style="background:yellow; height:200px; width:200px;color:block;">
+
+<input type="checkbox" name="test" value="1" checked="checked"/><span>1</span>
+<input type="checkbox" name="test" value="2"/><span>2</span>
+<input type="checkbox" name="test" value="3"/><span>3</span>
+<input type="checkbox" name="test" value="4"/><span>4</span>
+<input type="checkbox" name="test" value="5"/><span>5</span>
+<input type='button' value='提交' οnclick="fun()"/>
+</div>
+
+    <script type="text/javascript">
+     function fun(){
+        set_many_checked_value("test", '["2"]');
+    }
+    function set_many_checked_value(input_name, data){
+        var label;
+        label = document.getElementsByName(input_name);
+        data = JSON.parse(data);
+			//JSON.parse() 方法用于将一个 JSON 字符串转换为对象。
+        for (var i = 0; i < label.length; i++){
+            console.log(label[i]);
+            for (var j = 0; j < data.length; j++){
+                if (label[i].getAttribute("value") == "" + data[j]){
+                    label[i].setAttribute("checked", "checked");
+                }
+            }
+        }
+}
+</script>
+</body>
+</html>
