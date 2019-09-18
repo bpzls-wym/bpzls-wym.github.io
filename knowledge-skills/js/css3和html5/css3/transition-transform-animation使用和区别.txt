@@ -1,0 +1,121 @@
+transition（过渡）   transform（变换）  animation（动画）
+博客文章链接：https://blog.csdn.net/krysliang/article/details/84634235
+
+一，transition（过渡）
+css中的transition允许css的属性值在一定的时间区间内平滑地过渡。这种效果可以在鼠标单击、获得焦点、
+被点击或对元素任何改变中触发，并圆滑的以动画效果改变css的属性值。
+（1）transition-property
+用来指定元素中哪一个属性执行过渡效果，取值有
+none 没有属性需要执行过渡
+all 所有属性发生变化（默认值）
+indent 元素的某一个属性值
+indent的取值覆盖了大部分的css取值，但是自适应的时候，宽度发生变化是不会触发的。
+
+（2）transiton-duration
+用来指定元素转换过程的持续时间，单位为s或ms，可以作用域任何元素。默认值为0
+
+（3）transition-timing-function
+transition-timing-function允许我们根据时间的推进去改变属性值的变换速率。主要有以下几个取值
+ease（逐渐变慢）
+linear（匀速）
+ease-in（加速）
+ease-out（减速）
+ease-in-out（加速然后减速）
+cubic-bezier（允许自定义一个时间曲线）
+
+4）transition-delay
+用来指定一个动画开始执行的时间，也就是说当改变元素属性值后多唱时间执行transition效果。
+
+.transform{
+????width: 300px;height: 300px;position: absolute;font-size: 22px;
+????color: white;background-color: brown;
+????-webkit-transition: background-color 1s ease 0.1s,width 1s linear 0.1s,height 1s ease-in-out 0.1s;
+????-moz-transition: background-color 1s ease 0.1s ,width 1s linear 0.1s,height 1s ease-in-out 0.1s;
+????-ms-transition: background-color 1s ease 0.1s,width 1s linear 0.1s,height 1s ease-in-out 0.1s;
+????-o-transition: background-color 1s ease 0.1s,width 1s linear 0.1s,height 1s ease-in-out 0.1s;
+????transition: background-color 1s ease 0.1s,width 1s linear 0.1s,height 1s ease-in-out 0.1s;
+}
+.transform:hover{
+????background-color: gray;width: 350px;height: 350px;
+}
+
+
+
+二， transform（变换）兼容性写法
+       transform: translateX(-50%);
+       -ms-transform: translateX(-50%);
+       -moz-transform: translateX(-50%);
+       -webkit-transform: translateX(-50%);
+       -o-transform: translateX(-50%);
+       transform就是变换，改变，主要的值有以下几种
+       transform的所有变换都是围绕着x轴,y轴，中心点来进行变换的 （transform-origin）变换的中心点
+       1，rotate（* deg）：围绕中心点2D旋转若干度，单位为deg
+            如果*中的值为正数则顺时针旋转，如果是负值则逆时针旋转
+            transform: rotate(30deg)顺时针旋转   |    transform: rotate(-30deg)逆时针旋转 
+       2，translate（x,y）移动
+            translate(x,y),x轴和y轴同时移动（如果这里只设定一个值，证明x的值和y的值相同，同样的也是x轴和y轴同时移动），
+            transform: translate(200px,100px);
+            translateX(x),沿着x轴移动，transform: translateX(100px);
+            translateY(y),沿着y轴移动。当值为负数时，反方向移动物体  transform: translateY(120px);         
+       3，scale缩放       
+            缩放和移动是极其相似的，它也是具有三种情况：scale(x,y)使元素水平方向和垂直方向同时缩放
+            （也就是x轴和y轴同时缩放）； transform: scale(1.5);   transform: scale(0.5);
+            scaleX(x)就只是水平方向进行缩放（x轴缩放）；transform: scaleX(0.5);  transform: scaleX(1.5);
+            scaleY（y）仅缩放垂直方向（y轴）。transform: scaleY(1.5);  transform: scaleY(0.5);
+            但它们具有相同的缩放中心点和技术，其中心点就是元素的中心位置，
+            缩放基数就是1（也就是参数是相对于1的多少倍），如果参数大于1元素就放大，反之元素就缩小。
+       4，skew扭曲（倾斜）
+            （1）skewX(* deg)按给定的角度沿x轴指定一个斜切变换（就是四个角在水平方向发生translate移动）。
+                    transform: skewX(30deg);   transform: skewX(-30deg);
+            （2）skewY：按指定的角度沿y轴指定一个斜切变换（就是四个角往上下拉）
+                    transform: skewY(30deg);   transform: skewY(-30deg);
+            （3）skew（x,y）：：X轴Y轴上的skew transformation（斜切变换）。第一个参数对应X轴，第二个参数对应Y轴。
+                    transform: skew(30deg,30deg);
+
+
+
+三、animation（动画）
+       动画animation有两个关键     一个是animation本身的属性值   一个是keyframes的写法
+       1，keyframes用@keyframs开头，后面接一个动画名，然后用大括号括起来，在里面写每一个关键帧的属性。
+            @keyframes   newframes { 
+    	0%{}
+    	100%{}
+             }
+           其中0%可以用from来代替，100%可以用to来代替，但是这两个值不能省略，也不能只写0或只写100，
+           否则不会有任何效果。	
+           animation-name(动画名，也就是keyfram中定义的动画名)
+           animation-duration（动画持续时间）
+           animation-timing-function（动画变化的速率）
+           animation-delay（动画延迟播放的时间）
+           animation-iteration-count（动画循环的次数，infinite是无限次）
+           animation-direction（动画的方向）
+                默认值为normal   另一个值是alternate，
+                设定animation-direction为alternate，那么第一次播放到100%后就会从100%播放到0%，如此往返。
+           animation-play-state动画的播放状态
+	用来控制元素动画的播放状态，主要有两个值running和pause，其中running是默认值，就是在播放。
+	而paused就是暂停播放。
+
+.animation{
+????width: 300px;height: 300px;position: absolute; 
+????font-size: 22px; color: white; ?background-color: brown; 
+????animation: newframes 3s ease alternate infinite;
+} 
+
+@keyframes newframes {
+????0%{
+????????width: 300px;
+????????height: 300px;
+????????background-color: brown;
+????}
+????40%{
+????????width: 500px;
+????????height: 500px;
+????????background-color: seagreen;
+????}
+????60%{
+????????width: 400px;
+????????height: 400px;
+????????background-color: coral;
+????}
+????100%{}
+ }
