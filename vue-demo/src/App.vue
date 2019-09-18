@@ -6,19 +6,15 @@
 </template>
 
 <script>
-  import One from "./components/One"
-  import Two from "./components/Two"
-  export default {
-    name: 'App',
-    data(){
-      return {
+import One from './components/One'
+import Two from './components/Two'
 
-      }
-    },
-    components:{
-      One,Two
-    }
+export default {
+  name: 'App',
+  components: {
+    One,Two
   }
+}
 </script>
 
 <style>
